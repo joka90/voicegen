@@ -6,7 +6,13 @@ The script reads the texts used to generate the sound files from a toml file. Se
 
 ## How to use
 
-Install dependencies with `pip install -r requirements.txt` and run the script with `python src/voicegen -c texts_en.toml -o output_dir`
+Install dependencies with `pip3 install -r requirements.txt` or
+
+    sudo apt install python3-certifi python3-chardet python3-idna python3-requests python3-six python3-toml python3-urllib3 python3-click python3-gtts
+    pip3 install --user ffmpeg-python
+    pip3 install --upgrade --user gtts
+
+and run the script with `python3 src/voicegen -c texts_en.toml -o output_dir`
  
 
 ## Additional notes
@@ -29,7 +35,9 @@ S5 Max:
 PC:
 * `scp root@robot_ip:/tmp/sounds.sqfs sounds.sqfs`
 * `unsquashfs sounds.sqfs`
-* `python src/voicegen -c texts_en.toml -o squashfs-root/sounds`
+* `python3 src/voicegen -c texts_en.toml -o squashfs-root/sounds`
+* `rm -f new_sounds.sqfs` if we don't do this we will store the old data too.
+* `(cd squashfs-root/tmod && ln -sf ../sounds/tmod_start_upload_log.ogg tmod_start_upload_log.ogg) && (cd squashfs-root/ && ln -sf sounds/start_greeting.ogg start_greeting.ogg)`
 * `mksquashfs squashfs-root new_sounds.sqfs`
 * `scp new_sounds.sqfs root@robot_ip:/tmp/sounds.sqfs`
 
